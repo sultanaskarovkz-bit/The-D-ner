@@ -56,6 +56,44 @@ body { font-family:'Manrope',sans-serif; background:var(--black); color:var(--wh
 .nav-cta:hover { background:var(--red-dark); transform:translateY(-1px); }
 
 /* ===== HERO ===== */
+
+/* ===== HERO LOGO ===== */
+.hero-logo-float {
+  position:absolute;
+  right:8%;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:2;
+  animation:logoFloat 4s ease-in-out infinite, fadeUp 1s ease-out 0.5s both;
+}
+.hero-logo-float img {
+  height:220px;
+  filter:drop-shadow(0 8px 40px rgba(212,32,39,0.3)) drop-shadow(0 0 80px rgba(212,32,39,0.15));
+}
+@keyframes logoFloat {
+  0%, 100% { transform:translateY(-50%); }
+  50% { transform:translateY(calc(-50% - 12px)); }
+}
+@media (max-width:1024px) {
+  .hero-logo-float {
+    position:relative;
+    right:auto; top:auto;
+    transform:none;
+    margin-bottom:24px;
+    padding-top:100px;
+    padding-left:48px;
+    animation:logoFloat 4s ease-in-out infinite, fadeUp 1s ease-out 0.5s both;
+  }
+  .hero-logo-float img { height:100px; }
+  @keyframes logoFloat {
+    0%, 100% { transform:translateY(0); }
+    50% { transform:translateY(-8px); }
+  }
+}
+@media (max-width:600px) {
+  .hero-logo-float { padding-left:20px; }
+}
+
 .hero {
   min-height:100vh; position:relative;
   display:flex; align-items:center;
@@ -552,6 +590,69 @@ section { padding:120px 48px; }
   font-size:15px; color:rgba(255,255,255,0.5);
   margin-bottom:40px;
 }
+/* Form */
+.app-form {
+  max-width:520px;
+  margin:0 auto;
+  text-align:left;
+}
+.form-group {
+  margin-bottom:20px;
+}
+.form-group input[type="text"],
+.form-group input[type="tel"] {
+  width:100%;
+  padding:16px 20px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:8px;
+  color:var(--white);
+  font-family:'Manrope',sans-serif;
+  font-size:15px;
+  transition:all 0.3s;
+  outline:none;
+}
+.form-group input[type="text"]:focus,
+.form-group input[type="tel"]:focus {
+  border-color:var(--red);
+  background:rgba(212,32,39,0.05);
+}
+.form-group input::placeholder {
+  color:rgba(255,255,255,0.35);
+}
+.form-label {
+  display:block;
+  font-size:14px;
+  color:rgba(255,255,255,0.7);
+  margin-bottom:12px;
+  font-weight:500;
+}
+.form-radio-group {
+  display:flex; gap:12px; flex-wrap:wrap;
+}
+.form-radio {
+  display:flex; align-items:center; gap:8px;
+  padding:10px 20px;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:8px;
+  cursor:pointer;
+  transition:all 0.3s;
+  font-size:14px;
+  color:rgba(255,255,255,0.7);
+}
+.form-radio:hover {
+  border-color:rgba(212,32,39,0.4);
+  background:rgba(212,32,39,0.05);
+}
+.form-radio input[type="radio"] {
+  accent-color:var(--red);
+  width:16px; height:16px;
+  cursor:pointer;
+}
+.form-radio input[type="radio"]:checked + span {
+  color:var(--white);
+}
 
 /* ===== FOOTER ===== */
 .footer {
@@ -1019,10 +1120,46 @@ section { padding:120px 48px; }
   <div class="cta-content reveal">
     <div class="section-label">Оставить заявку</div>
     <h2 class="section-title">Откройте бизнес по<br>франшизе The Doner</h2>
-    <p class="section-desc" style="margin:0 auto 24px; text-align:center;">Узнайте об условиях приобретения франшизы и начните зарабатывать уже через 49 дней.</p>
-    <div class="cta-phone"><a href="tel:+77783061488">+7 778 306 14 88</a></div>
+    <p class="section-desc" style="margin:0 auto 40px; text-align:center;">Заполните форму и мы свяжемся с вами для обсуждения условий франшизы.</p>
+    <form class="app-form" action="https://formsubmit.co/danabek3193@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="Новая заявка — The Doner на углях">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <div class="form-group">
+        <input type="text" name="ФИО" placeholder="Ваше ФИО" required>
+      </div>
+      <div class="form-group">
+        <input type="text" name="Город" placeholder="Какой город рассматриваете для запуска?" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Имеется ли у вас опыт предпринимательской деятельности?</label>
+        <div class="form-radio-group">
+          <label class="form-radio"><input type="radio" name="Опыт предпринимательства" value="Да" required><span>Да</span></label>
+          <label class="form-radio"><input type="radio" name="Опыт предпринимательства" value="Нет"><span>Нет</span></label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Есть ли опыт управления персоналом?</label>
+        <div class="form-radio-group">
+          <label class="form-radio"><input type="radio" name="Управление персоналом" value="Да" required><span>Да</span></label>
+          <label class="form-radio"><input type="radio" name="Управление персоналом" value="Нет"><span>Нет</span></label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Готовы ли вы вкладывать в бизнес 50–60 млн тенге?</label>
+        <div class="form-radio-group">
+          <label class="form-radio"><input type="radio" name="Готовность инвестировать" value="Да" required><span>Да</span></label>
+          <label class="form-radio"><input type="radio" name="Готовность инвестировать" value="Нет"><span>Нет</span></label>
+          <label class="form-radio"><input type="radio" name="Готовность инвестировать" value="Нужно обсудить"><span>Нужно обсудить</span></label>
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="tel" name="Телефон" placeholder="Ваш номер телефона" required>
+      </div>
+      <button type="submit" class="btn-primary" style="width:100%;justify-content:center;margin-top:8px;">🔥 Отправить заявку</button>
+    </form>
+    <div class="cta-phone" style="margin-top:40px;"><a href="tel:+77783061488">+7 778 306 14 88</a></div>
     <div class="cta-hours">Ежедневно с 10:00 до 23:00</div>
-    <a href="tel:+77783061488" class="btn-primary" style="margin:0 auto;">🔥 Оставить заявку</a>
   </div>
 </section>
 
